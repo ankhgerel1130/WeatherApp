@@ -1,0 +1,71 @@
+body {
+    font-family: "Bangers", system-ui;
+    text-align: center;
+    margin-top: 50px;
+    background-color: #14171A;
+    color: white;
+}
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #26292c;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+img {
+    height: 100px;
+    width: 100px;
+}
+
+.main-icon {
+    height: 150px;
+    width: 150px;
+}
+
+input, button {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 9999px;
+    border: none;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 75%;
+    background-color: #1F2C36;
+    color: white;
+    outline: none;
+    border: 2px solid #1DA1F2;
+    margin-right: 10px;
+    font-family: "Bangers", system-ui;
+}
+
+button {
+    background-color: #1DA1F2;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s;
+    font-size: 20px;
+    font-family: "Bangers", system-ui;
+}
+
+button:hover {
+    background-color: #0C90D9;
+}
+
+#weather-info {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+#city-name, #date-time, #temperature, #weather-description {
+    margin-bottom: 10px;
+}
+
+img {
+    vertical-align: middle;
+}
