@@ -12,7 +12,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     background-color: #26292c;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 20px rgba(198, 197, 197, 0.5);
 }
 
 img {
@@ -41,6 +41,7 @@ input {
     border: 2px solid #1DA1F2;
     margin-right: 10px;
     font-family: "Bangers", system-ui;
+    box-shadow: 0 0 5px #1DA1F2;
 }
 
 button {
@@ -48,9 +49,11 @@ button {
     color: white;
     cursor: pointer;
     outline: none;
+    width: 25%;
     transition: background-color 0.3s;
     font-size: 20px;
     font-family: "Bangers", system-ui;
+    box-shadow: 0 0 100px #1DA1F2;
 }
 
 button:hover {
