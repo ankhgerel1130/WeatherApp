@@ -1,3 +1,9 @@
+document.getElementById("city").addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        getWeather();
+    }
+});
+
 async function getWeather() {
     const city = document.getElementById('city').value;
     const apiKey = 'ab853dcecca4b673e158af22aa48528b';
@@ -29,5 +35,26 @@ async function getWeather() {
     } catch (error) {
         document.getElementById('weather-info').innerHTML = 'Error fetching data!';
         console.error('Error:', error);
+    }
+}
+
+function getAdvice() {
+    fetch('https://api.adviceslip.com/advice')
+        .then(response => response.json())
+        .then(data => {
+            const advice = data.slip.advice;
+            document.getElementById('advice').innerText = advice;
+        })
+        .catch(error => {
+            document.getElementById('advice').innerText = 'Could not fetch advice!';
+            console.error('Error fetching advice:', error);
+        });
+}
+
+function toggleAdvice() {
+    const adviceSection = document.getElementById('advice-section');
+    adviceSection.style.display = adviceSection.style.display === 'block' ? 'none' : 'block';
+    if (adviceSection.style.display === 'block') {
+        getAdvice();
     }
 }
