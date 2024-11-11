@@ -3,38 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fascinate+Inline&family=Knewave&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <script src="login.js"></script>
+    <title>Login</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        body {
+            font-family: "Arial", system-ui;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #14171A;
+            color: white;
+        }
+        .g_id_signin {
+            color: white;
+            font-size: 16px;
+            background-color: #00aaf9;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            width: 20%;
+            margin-left: 39%;
+            margin-top: 25%;
+            font-family: "Bangers", system-ui;
+            z-index: 1000;
+        }
+        .g_id_signin:hover {
+            background-color: #00aaf9;
+            transform: scale(1.05);
+        }
+        .g_id_signin:active {
+        
+            transform: scale(1);
+        }
+        .g_id_signin:focus {
+            outline: none;
+        }
+    </style>
 </head>
 <body>
-   <div class="container">
-    <img src="photos/cloudy.png" alt="Weather Icon" class="main-icon">
-    <h1>Weather App</h1>
-    <div class="input-container">
-        <input type="text" id="city" placeholder="Enter a city name">
-        <button onclick="getWeather()">Search</button>
+    <div id="g_id_onload"
+         data-client_id="368374151899-3pevppmfvkm2esk8tioaaqcbmv30111m.apps.googleusercontent.com"
+         data-callback="handleCredentialResponse">
     </div>
-    <button class="advice-button" onclick="toggleAdvice()">Get Advice</button>
-    
-    <div id="weather-info">
-        <h2 id="city-name"></h2>
-        <h3 id="date-time"></h3>
-        <h3 id="temperature"></h3>
-        <div id="weather-description"></div>
-    </div>
-    <div id="advice-section">
-    <h3>Advice of the Day</h3>
-    <p id="advice"></p>
-    <button class="another-advice-button" onclick="getAdvice()">Get Another Advice</button>
-    <button class="back-button" onclick="toggleAdvice()">Back</button> 
-</div>
 
-</div>
+    <!-- Google Sign-in Button -->
+    <div class="g_id_signin"></div>
 
-    <script src="lol.js"></script>
-   
+    <script>
+        let currentUser = null;
+
+        // Display Google sign-in button and hide the weather app initially
+        window.onload = function() {
+            document.querySelector('.g_id_signin').style.display = 'block'; // Show sign-in button
+        };
+
+        // Handle the Google Sign-In Response
+        function handleCredentialResponse(response) {
+            const jwt = response.credential;
+            console.log("JWT ID token: " + jwt);
+
+            fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${jwt}`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log("User data:", data);
+                    currentUser = data;
+
+                    // Store user data in sessionStorage
+                    sessionStorage.setItem('user', JSON.stringify(currentUser));
+
+                    // After successful login, redirect to the weather app
+                    window.location.href = 'weatherApp.html'; // Redirect to weather app page
+                })
+                .catch(error => {
+                    console.error('Error decoding JWT:', error);
+                });
+        }
+    </script>
 </body>
 </html>

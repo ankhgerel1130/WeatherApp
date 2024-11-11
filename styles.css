@@ -6,6 +6,25 @@ body {
     color: white;
 }
 
+.sign-out {
+    background-color: #ff3b3b;
+    color: white;
+
+    font-size: 16px;
+    border-radius: 9999px;
+    width: 15%;
+    cursor: pointer;
+    font-family: "Bangers", system-ui;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.sign-out:hover {
+    background-color: #e60000;
+}
+
+
+
 .container {
     max-width: 400px;
     margin: 0 auto;
@@ -77,7 +96,6 @@ button:hover {
     padding: 10px 20px;
     font-size: 20px;
     width: 60%;
-    margin-top: 20px;
     cursor: pointer;
     font-family: "Bangers", system-ui;
 }
