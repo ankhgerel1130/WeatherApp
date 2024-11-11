@@ -16,7 +16,6 @@ async function getWeather() {
             const localTime = new Date(new Date().getTime() + (timezoneOffset * 3600 ));
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
             const formattedDate = localTime.toLocaleDateString('en-US', options);
-
             const iconCode = data.weather[0].icon;
             const iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
@@ -32,7 +31,7 @@ async function getWeather() {
             document.getElementById('weather-info').innerHTML = 'City not found!';
         }
     } catch (error) {
-        document.getElementById('weather-info').innerHTML = 'Error fetching data!';
+        document.getElementById('weather-info').innerHTML = 'Error ';
         console.error('Error:', error);
     }
 }

@@ -144,5 +144,6 @@ button:hover {
 }
 
 .back-button:hover {
-    background-color: #e60000; /* Darker red on hover */
+    background-color: #e60000;
 }
+
