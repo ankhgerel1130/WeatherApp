@@ -5,6 +5,77 @@ body {
     background-color: #14171A;
     color: white;
 }
+#login-section, #register-section {
+    background-color: #1c1f23;
+    padding: 20px;
+    border-radius: 10px;
+    width: 350px;
+    margin: -400px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+#login-section h2, #register-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #00aaf9;
+}
+
+#login-section input, #register-section input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #2a2e33;
+    border-radius: 5px;
+    background-color: #2a2e33;
+    color: white;
+    font-size: 14px;
+    outline: none;
+}
+
+#login-section input:focus, #register-section input:focus {
+    border-color: #00aaf9;
+    background-color: #25282d;
+}
+
+#login-section button, #register-section button {
+    background-color: #00aaf9;
+    color: white;
+    font-size: 16px;
+    font-family: "Arial", sans-serif;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 100%;
+}
+
+#login-section button:hover, #register-section button:hover {
+    background-color: #008ed6;
+    transform: scale(1.05);
+}
+
+#login-section button:active, #register-section button:active {
+    transform: scale(1);
+}
+
+#login-section p, #register-section p {
+    color: #cccccc;
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+#login-section a, #register-section a {
+    color: #00aaf9;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+#login-section a:hover, #register-section a:hover {
+    color: #008ed6;
+}
 
 .sign-out {
     background-color: #ff3b3b;

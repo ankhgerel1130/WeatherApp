@@ -7,11 +7,14 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- User Section -->
-    <div id="user-section" style="display: none;">
-        <h2 id="user-name"></h2>
-        <button class="sign-out" onclick="signOut()">Sign Out</button>
-    </div>
+
+<div id="user-section" style="display: none;">
+    <img id="user-profile-pic" src="" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
+    <h2 id="user-name"></h2>
+    <p id="user-email" style="margin: 20px;"></p> 
+    <button class="sign-out" onclick="signOut()">Sign Out</button>
+</div>
+
 
     <!-- Weather Information Section -->
     <div class="container">
@@ -41,26 +44,42 @@
     </div>
 
     <script>
-        // Display user's name
-        const storedUser = sessionStorage.getItem('user');
-        const currentUser = JSON.parse(storedUser);
-        document.getElementById('user-name').innerText = `Welcome, ${currentUser.name}`;
-        document.getElementById('user-section').style.display = 'block';
+      
+      window.onload = function() {
+    const storedUser = sessionStorage.getItem('user');
+    const currentUser = JSON.parse(storedUser);
 
-        // Sign out function
-        function signOut() {
-            sessionStorage.removeItem('user');
-            window.location.href = 'index.html'; 
+    if (currentUser) {
+        // Check if it's a Google user by the presence of a picture (Google login includes a picture)
+        if (currentUser.picture) {
+            document.getElementById('user-name').innerText = `Welcome, ${currentUser.name}`; // Google user
+        } else {
+            // Display first name if it's a traditional registration
+            document.getElementById('user-name').innerText = `Welcome, ${currentUser.first_name || 'User'}`; // Default 'User' if first_name is undefined
         }
 
-        // Add Event Listener for Enter key
+        document.getElementById('user-profile-pic').src = currentUser.picture || 'default-profile-pic.png';  // Optional fallback for profile picture
+        document.getElementById('user-email').innerText = currentUser.email;
+
+        document.getElementById('user-section').style.display = 'block';
+    } else {
+        window.location.href = 'login.html'; // Redirect to login if no user data exists
+    }
+};
+
+
+
+        function signOut() {
+            sessionStorage.removeItem('user');
+            window.location.href = 'index.html';
+        }
+
         document.getElementById("city").addEventListener("keyup", function(event) {
             if (event.key === "Enter") {
                 getWeather();
             }
         });
 
-        // Fetch and display weather data
         async function getWeather() {
             const city = document.getElementById('city').value;
             const apiKey = 'ab853dcecca4b673e158af22aa48528b';
@@ -94,7 +113,6 @@
             }
         }
 
-        // Fetch advice
         function getAdvice() {
             fetch('https://api.adviceslip.com/advice')
                 .then(response => response.json())
@@ -108,7 +126,6 @@
                 });
         }
 
-        // Toggle advice section visibility
         function toggleAdvice() {
             const adviceSection = document.getElementById('advice-section');
             if (adviceSection.style.display === 'none' || adviceSection.style.display === '') {

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="login.js"></script>
+    <link rel="stylesheet" href="styles.css">
     <title>Login</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
@@ -22,7 +23,7 @@
             transition: background-color 0.3s ease, transform 0.3s ease;
             width: 20%;
             margin-left: 39%;
-            margin-top: 25%;
+            margin-top: 40%;
             font-family: "Bangers", system-ui;
             z-index: 1000;
         }
@@ -48,6 +49,26 @@
     <!-- Google Sign-in Button -->
     <div class="g_id_signin"></div>
 
+
+    <div id="login-section">
+        <h2>Login</h2>
+        <input type="email" id="login-email" placeholder="Email">
+        <input type="password" id="login-password" placeholder="Password">
+        <button onclick="loginUser()">Login</button>
+        
+        <p>Don't have an account? <a href="#" onclick="showRegister()">Register here</a></p>
+    </div>
+    
+    <div id="register-section" style="display:none;">
+        <h2>Register</h2>
+        <input type="text" id="register-first-name" placeholder="First Name">
+        <input type="text" id="register-last-name" placeholder="Last Name">
+        <input type="email" id="register-email" placeholder="Email">
+        <input type="password" id="register-password" placeholder="Password">
+        <button id="register-button" onclick="registerUser(event)">Register</button>
+        <p>Already have an account? <a href="#" onclick="showLogin()">Login here</a></p>
+    </div>
+    
  
 </body>
 </html>
