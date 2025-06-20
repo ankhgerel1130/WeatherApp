@@ -12,7 +12,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     background-color: #26292c;
-    box-shadow: 0 0 20px rgba(198, 197, 197, 0.5);
+    box-shadow: 0 0 20px rgba(197, 197, 198, 0.5);
 }
 
 img {
@@ -40,7 +40,7 @@ input {
     outline: none;
     border: 2px solid #1DA1F2;
     margin-right: 10px;
-    font-family: "Bangers", system-ui;
+   
     box-shadow: 0 0 5px #1DA1F2;
 }
 
@@ -144,5 +144,5 @@ button:hover {
 }
 
 .back-button:hover {
-    background-color: #e60000; /* Darker red on hover */
+    background-color: #e60000; 
 }
