@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="user-section" style="display: none;">
+    <img id="user-profile-pic" src="" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
+    <h2 id="user-name"></h2>
+    <p id="user-email" style="margin: 20px;"></p> 
+    <button class="sign-out" onclick="signOut()">Sign Out</button>
+</div>
+
+
+    <!-- Weather Information Section -->
+    <div class="container">
+        <img src="photos/cloudy.png" alt="Weather Icon" class="main-icon">
+        <h1>Weather App</h1>
+        <div class="input-container">
+            <input type="text" id="city" placeholder="Enter a city name">
+            <button onclick="getWeather()">Search</button>
+        </div>
+        
+        <div id="weather-info">
+            <h2 id="city-name"></h2>
+            <h3 id="date-time"></h3>
+            <h3 id="temperature"></h3>
+            <div id="weather-description"></div>
+        </div>
+
+        <!-- Get Advice Button -->
+        <button onclick="toggleAdvice()">Get Advice</button>
+    </div>
+
+    <!-- Advice Section -->
+    <div id="advice-section" style="display: none;">
+        <p id="advice"></p>
+        <button class="another-advice-button" onclick="getAdvice()">Another Advice</button>
+        <button class="back-button" onclick="toggleAdvice()">Back</button>
+    </div>
+
+    <script>
+      
+      window.onload = function() {
+    const storedUser = sessionStorage.getItem('user');
+    const currentUser = JSON.parse(storedUser);
+
+    if (currentUser) {
+       
+        if (currentUser.picture) {
+            document.getElementById('user-name').innerText = `Welcome, ${currentUser.name}`; // Google user
+        } else {
+      
+            document.getElementById('user-name').innerText = `Welcome, ${currentUser.first_name }`; // Default 'User' if first_name is undefined
+        }
+
+        document.getElementById('user-profile-pic').src = currentUser.picture || 'default-profile-pic.png';  // Optional fallback for profile picture
+        document.getElementById('user-email').innerText = currentUser.email;
+
+        document.getElementById('user-section').style.display = 'block';
+    } else {
+        window.location.href = 'login.html'; // Redirect to login if no user data exists
+    }
+};
+
+
+
+        function signOut() {
+            sessionStorage.removeItem('user');
+            window.location.href = 'index.html';
+        }
+
+        document.getElementById("city").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                getWeather();
+            }
+        });
+
+        async function getWeather() {
+            const city = document.getElementById('city').value;
+            const apiKey = 'ab853dcecca4b673e158af22aa48528b';
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                if (data.cod === 200) {
+                    const timezoneOffset = data.timezone / 3600;
+                    const localTime = new Date(new Date().getTime() + (timezoneOffset * 3600 * 1000));
+                    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                    const formattedDate = localTime.toLocaleDateString('en-US', options);
+                    const iconCode = data.weather[0].icon;
+                    const iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+                    document.getElementById('date-time').innerHTML = `Date: ${formattedDate}`;
+                    document.getElementById('city-name').innerHTML = `City: ${data.name}`;
+                    document.getElementById('temperature').innerHTML = `Temperature: ${data.main.temp} °C`;
+                    document.getElementById('weather-description').innerHTML = `
+                        Weather: ${data.weather[0].description}
+                        <img src="${iconUrl}" alt="Weather Icon" style="vertical-align: middle; margin-left: 10px;">
+                    `;
+                    getAdvice();  
+                } else {
+                    document.getElementById('weather-info').innerHTML = 'City not found!';
+                }
+            } catch (error) {
+                document.getElementById('weather-info').innerHTML = 'Error ';
+                console.error('Error:', error);
+            }
+        }
+
+        function getAdvice() {
+            fetch('https://api.adviceslip.com/advice')
+                .then(response => response.json())
+                .then(data => {
+                    const advice = data.slip.advice;
+                    document.getElementById('advice').innerText = advice;
+                })
+                .catch(error => {
+                    document.getElementById('advice').innerText = 'Could not fetch advice!';
+                    console.error('Error fetching advice:', error);
+                });
+        }
+
+        function toggleAdvice() {
+            const adviceSection = document.getElementById('advice-section');
+            if (adviceSection.style.display === 'none' || adviceSection.style.display === '') {
+                adviceSection.style.display = 'block';
+            } else {
+                adviceSection.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
